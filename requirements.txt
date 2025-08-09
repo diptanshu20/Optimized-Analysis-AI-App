@@ -8,5 +8,5 @@ requests
 python-dotenv
 openpyxl
 xlrd
-ydata-profiling
+
 streamlit-aggrid
