@@ -8,5 +8,5 @@ requests
 python-dotenv
 openpyxl
 xlrd
-
+google-generativeai
 streamlit-aggrid
