@@ -8,16 +8,20 @@ def load_data(uploaded_file):
 
     if file_type == 'csv':
         try:
-            # Try reading assuming CSV has headers
-            df = pd.read_csv(uploaded_file)
+            # Important: Reset file pointer to start before reading
+            uploaded_file.seek(0)
+
+            # Read CSV, explicitly specify UTF-8 encoding (you can try 'utf-8-sig' if BOM issues)
+            df = pd.read_csv(uploaded_file, encoding='utf-8')
+
         except UnicodeDecodeError:
             # fallback encoding
+            uploaded_file.seek(0)
             df = pd.read_csv(uploaded_file, encoding='latin1')
 
-        # Uncomment this line if your CSV files do NOT have headers and the first row is data:
-        # df = pd.read_csv(uploaded_file, header=None)
-
     elif file_type in ['xlsx', 'xls']:
+        # Reset pointer and read excel
+        uploaded_file.seek(0)
         df = pd.read_excel(uploaded_file)
     else:
         raise ValueError("Unsupported file type")
